@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6kn3276hxwqa"]
+
+[ext_resource type="Texture2D" uid="uid://b0wbiatsbpae6" path="res://graphics/ui/hints/e_key.png" id="1_xkeoi"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qu1tv"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6tnp"]
+atlas = ExtResource("1_xkeoi")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13i3i"]
+atlas = ExtResource("1_xkeoi")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cdcdc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6tnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13i3i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Hint" type="AnimatedSprite2D"]
+material = SubResource("CanvasItemMaterial_qu1tv")
+sprite_frames = SubResource("SpriteFrames_cdcdc")
+autoplay = "default"
+frame_progress = 0.898576

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqipfolfvub5"]
+
+[ext_resource type="Script" path="res://nodes/environment/input_trigger_component.gd" id="1_kluup"]
+[ext_resource type="Texture2D" uid="uid://cnnja4lkw1l2o" path="res://graphics/environment/door.png" id="2_mu7g3"]
+[ext_resource type="PackedScene" uid="uid://c6kn3276hxwqa" path="res://nodes/ui/hint.tscn" id="3_crm4t"]
+[ext_resource type="Script" path="res://nodes/environment/scene_changer_component.gd" id="4_r0jcr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_db1kh"]
+radius = 24.0
+
+[node name="Door" type="Node2D"]
+
+[node name="Trigger" type="Area2D" parent="."]
+position = Vector2(8, 8)
+script = ExtResource("1_kluup")
+
+[node name="Sprite" type="Sprite2D" parent="Trigger"]
+texture = ExtResource("2_mu7g3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+shape = SubResource("CircleShape2D_db1kh")
+
+[node name="Hint" parent="Trigger" instance=ExtResource("3_crm4t")]
+visible = false
+position = Vector2(0, -16)
+
+[node name="SceneChangerComponent" type="Node" parent="."]
+script = ExtResource("4_r0jcr")
+
+[connection signal="player_entered" from="Trigger" to="Trigger/Hint" method="show"]
+[connection signal="player_exited" from="Trigger" to="Trigger/Hint" method="hide"]
+[connection signal="triggered" from="Trigger" to="SceneChangerComponent" method="change_scene"]

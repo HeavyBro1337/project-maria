@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4cbhilghifxq"]
+
+[ext_resource type="Texture2D" uid="uid://biaah2xev1sny" path="res://graphics/environment/torch.png" id="1_p1nmx"]
+[ext_resource type="Texture2D" uid="uid://d27g8tb65gokd" path="res://graphics/environment/torch_particle.png" id="2_llhlq"]
+
+[sub_resource type="Gradient" id="Gradient_s25jo"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eq3jp"]
+gradient = SubResource("Gradient_s25jo")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.6, 0.3)
+metadata/_snap_enabled = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7tvhl"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 32.0
+spread = 180.0
+initial_velocity_max = 151.52
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+gravity = Vector3(0, 98, 0)
+damping_max = 18.182
+attractor_interaction_enabled = false
+scale_min = 0.0
+scale_max = 2.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vdmkp"]
+blend_mode = 1
+light_mode = 1
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nubgn"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 9.0
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = -30.0
+initial_velocity_max = 30.3
+gravity = Vector3(0, -32, 0)
+anim_speed_max = 1.0
+
+[node name="Torch" type="Node2D"]
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="LightSource" type="PointLight2D" parent="Pivot"]
+position = Vector2(0, -4)
+color = Color(1, 0.756863, 0.25098, 1)
+energy = 0.98
+texture = SubResource("GradientTexture2D_eq3jp")
+texture_scale = 2.0
+height = 16.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+texture = ExtResource("1_p1nmx")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Pivot"]
+position = Vector2(0, 8)
+process_material = SubResource("ParticleProcessMaterial_7tvhl")
+
+[node name="Flame" type="GPUParticles2D" parent="Pivot"]
+material = SubResource("CanvasItemMaterial_vdmkp")
+position = Vector2(0, -6)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_nubgn")
+texture = ExtResource("2_llhlq")

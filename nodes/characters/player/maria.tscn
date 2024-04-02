@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqa1bhg06j7ug"]
+
+[ext_resource type="Script" path="res://nodes/characters/player/maria.gd" id="1_nn5ji"]
+[ext_resource type="Script" path="res://nodes/characters/move_by_velocity.gd" id="1_u2ueu"]
+[ext_resource type="Script" path="res://nodes/characters/control_component.gd" id="2_dpgob"]
+[ext_resource type="Script" path="res://nodes/velocity_component.gd" id="3_wgoev"]
+[ext_resource type="Texture2D" uid="uid://buqf61s3475ss" path="res://icon.svg" id="4_6bi71"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0b40o"]
+radius = 16.0
+
+[node name="Maria" type="CharacterBody2D"]
+script = ExtResource("1_nn5ji")
+
+[node name="MoveByVelocity" type="Node" parent="." node_paths=PackedStringArray("velocity_component")]
+script = ExtResource("1_u2ueu")
+velocity_component = NodePath("../VelocityComponent")
+
+[node name="ControlComponent" type="Node" parent="." node_paths=PackedStringArray("velocity_component")]
+script = ExtResource("2_dpgob")
+velocity_component = NodePath("../VelocityComponent")
+acceleration = 1000.0
+
+[node name="VelocityComponent" type="Node" parent="."]
+script = ExtResource("3_wgoev")
+speed = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_6bi71")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0b40o")
+debug_color = Color(1, 0.160784, 0.701961, 0.419608)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
